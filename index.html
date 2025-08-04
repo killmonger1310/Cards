@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Untuk Emma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body
+    style="
+      background-image: url(https://images.unsplash.com/photo-1519750783826-e2420f4d687f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      background-size: cover;
+      background-position: center;
+    "
+    class="flex justify-center h-screen items-center"
+  >
+    <div
+      class="bg-white/90 backdrop-blur-sm border px-10 py-8 border-4 border-pink-200 shadow-lg shadow-pink-300 rounded-xl text-center animate__animated animate__backInDown m-8 w-80"
+      id="kartu"
+    >
+      <h1 class="text-3xl">Dear My Love</h1>
+      <h1
+        class="text-4xl text-pink-500 font-bold animate__animated animate__pulse animate__infinite"
+      >
+        Emma
+      </h1>
+      <button
+        class="p-2 bg-pink-500 text-white rounded mt-5 hover:bg-pink-700 transition ease-in w-full animate__animated animate__delay-1s animate__tada"
+        onclick="ubahKartu()"
+      >
+        Klik Disini Yaa Sayang!!
+      </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+      // Fungsi untuk memunculkan confetti hati
+      function fireConfetti() {
+        confetti({
+          particleCount: 100,
+          spread: 150,
+          origin: { y: 0.6 },
+          shapes: ["heart"],
+          colors: ["#FFC0CB", "#FF69B4", "#FF1493", "#E6E6FA"],
+          scalar: 2.5,
+        });
+      }
+
+      // Panggil confetti saat halaman pertama kali dimuat
+      fireConfetti();
+
+      // Ambil elemen kartu
+      let kartu = document.getElementById("kartu");
+
+      // ✨ FUNGSI UTAMA DIMODIFIKASI DI SINI ✨
+
+      // Fungsi untuk mengubah isi kartu menjadi ucapan
+      function ubahKartu() {
+        fireConfetti(); // Panggil confetti lagi saat tombol diklik
+
+        // Ganti isi kartu dengan ucapan dan tombol "Lanjut"
+        kartu.innerHTML = `
+          <h1 class="font-semibold text-wrap animate__animated animate__zoomIn">
+            Kidung Agung 4:1 </br>"Lihatlah, cantik engkau, manisku, 
+            sungguh cantik engkau! Bagaikan merpati matamu di balik telekungmu. 
+            Rambutmu bagaikan kawanan kambing yang bergelombang turun dari pegunungan Gilead."</br>🥰😇💖✨
+          </h1>
+          <h2 class="mt-3 animate__animated animate__fadeIn">
+            - Dari : Cuaa 💖-
+          </h2>
+          <button
+            class="p-2 bg-pink-500 text-white rounded mt-5 hover:bg-pink-700 transition ease-in w-full animate__animated animate__delay-1s animate__tada"
+            onclick="lanjutKeHalamanBerikutnya()"
+          >
+            Klik untuk lanjut yaa syg 
+          </button>
+        `;
+      }
+
+      // Fungsi untuk mengarahkan ke halaman kedua
+      function lanjutKeHalamanBerikutnya() {
+        window.location.href = "halaman1.html";
+      }
+    </script>
+  </body>
+</html>

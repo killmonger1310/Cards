@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Special Message For You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* (CSS dari skrip asli Anda tetap sama) */
+      :root {
+        --dark-bg: #1a1a2e;
+        --light-bg: #ffffff;
+        --accent-color: #e94560;
+        --text-color: #333;
+      }
+      body {
+        background-color: var(--dark-bg);
+        font-family: "Fira Code", monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        color: var(--text-color);
+      }
+      .editor-window {
+        width: 90%;
+        max-width: 800px;
+        height: 500px;
+        background-color: var(--light-bg);
+        border-radius: 15px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transform: scale(0.9);
+        opacity: 0;
+        animation: fadeInWindow 0.5s 0.2s ease-out forwards;
+      }
+      @keyframes fadeInWindow {
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .editor-header {
+        display: flex;
+        align-items: center;
+        background-color: #f0f0f0;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        flex-shrink: 0;
+      }
+      .tabs {
+        display: flex;
+        gap: 20px;
+      }
+      .tab {
+        padding: 8px 15px;
+        cursor: pointer;
+        font-weight: 500;
+        color: #888;
+        position: relative;
+        transition: color 0.3s;
+      }
+      .tab.active {
+        color: var(--text-color);
+        font-weight: 700;
+      }
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -11px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--accent-color);
+        border-radius: 2px;
+      }
+      .editor-content {
+        display: flex;
+        flex-grow: 1;
+        padding: 20px;
+        position: relative;
+      }
+      .animation-pane {
+        flex: 1;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .character {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 150px;
+        height: auto;
+        transform: scale(0);
+        animation: popInChar 0.5s ease-out forwards;
+        z-index: 10;
+      }
+      #character-gif {
+        animation-delay: 0.8s;
+      }
+      .character-2 {
+        left: 170px;
+        animation-delay: 1s;
+      }
+      @keyframes popInChar {
+        to {
+          transform: scale(1);
+        }
+      }
+      .heart-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .flying-heart {
+        width: 15px;
+        height: 15px;
+        background-color: var(--accent-color);
+        position: absolute;
+        opacity: 0;
+        transform: rotate(-45deg) scale(0);
+        animation: flyAndPlaceHeart 1.2s cubic-bezier(0.34, 0, 0.64, 1.4)
+          forwards;
+      }
+      .flying-heart::before,
+      .flying-heart::after {
+        content: "";
+        width: 15px;
+        height: 15px;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        position: absolute;
+      }
+      .flying-heart::before {
+        top: -7.5px;
+        left: 0;
+      }
+      .flying-heart::after {
+        top: 0;
+        left: 7.5px;
+      }
+      @keyframes flyAndPlaceHeart {
+        0% {
+          opacity: 1;
+          transform: translate(var(--start-x), var(--start-y)) rotate(-45deg)
+            scale(0.5);
+        }
+        30% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+          transform: translate(var(--end-x), var(--end-y)) rotate(-45deg)
+            scale(1);
+        }
+      }
+      .final-message {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        font-family: "Dancing Script", cursive;
+        font-size: 3rem;
+        color: var(--accent-color);
+        opacity: 0;
+        white-space: nowrap;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        z-index: 20;
+      }
+      .final-message.visible {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="editor-window">
+      <div class="editor-header">
+        <div class="tabs"><div class="tab active">Love</div></div>
+      </div>
+      <div class="editor-content">
+        <div class="animation-pane">
+          <div class="heart-container"></div>
+          <img
+            src="mlqcxbiu.gif"
+            alt="Cute Character"
+            class="character"
+            id="character-gif"
+          />
+          <!-- <img src="https://media.tenor.com/6nC4s_1b3yUAAAAi/quby-pentol.gif" alt="Cute Character 2" class="character character-2" id="character-gif-2"> -->
+          <div class="final-message" id="finalMessage">I Love You</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const heartContainer = document.querySelector(".heart-container");
+        const finalMessage = document.getElementById("finalMessage");
+        const animationPane = document.querySelector(".animation-pane");
+        const characterGif = document.getElementById("character-gif");
+        const heartShape = [
+          "011101110",
+          "111111111",
+          "111111111",
+          "111111111",
+          "011111110",
+          "001111100",
+          "000111000",
+          "000010000",
+        ];
+
+        function createHeartFormation() {
+          const paneRect = animationPane.getBoundingClientRect();
+          const gridWidth = 250,
+            gridHeight = 250;
+          const gridX = (paneRect.width - gridWidth) / 2;
+          const gridY = (paneRect.height - gridHeight) / 2 - 20;
+          const rows = heartShape.length,
+            cols = heartShape[0].length;
+          const cellWidth = gridWidth / cols,
+            cellHeight = gridHeight / rows;
+          let delay = 0;
+          heartShape.forEach((row, r) => {
+            [...row].forEach((cell, c) => {
+              if (cell === "1") {
+                const heart = document.createElement("div");
+                heart.classList.add("flying-heart");
+                const finalX = gridX + c * cellWidth + cellWidth / 2;
+                const finalY = gridY + r * cellHeight + cellHeight / 2;
+                heart.style.setProperty("--start-x", `115px`);
+                heart.style.setProperty("--start-y", `320px`);
+                heart.style.setProperty("--end-x", `${finalX}px`);
+                heart.style.setProperty("--end-y", `${finalY}px`);
+                heart.style.animationDelay = `${delay}s`;
+                heartContainer.appendChild(heart);
+                delay += 0.04;
+              }
+            });
+          });
+
+          // ✨ MODIFIKASI DIMULAI DISINI ✨
+          setTimeout(() => {
+            finalMessage.classList.add("visible");
+            try {
+              const canvas = document.createElement("canvas");
+              if (
+                characterGif.naturalWidth > 0 &&
+                characterGif.naturalHeight > 0
+              ) {
+                canvas.width = characterGif.width;
+                canvas.height = characterGif.height;
+                const context = canvas.getContext("2d");
+                context.drawImage(
+                  characterGif,
+                  0,
+                  0,
+                  characterGif.width,
+                  characterGif.height
+                );
+                characterGif.src = canvas.toDataURL();
+              }
+            } catch (e) {
+              console.error("Gagal menghentikan GIF:", e);
+            }
+
+            // Tambahkan jeda 3 detik sebelum pindah ke halaman berikutnya
+            setTimeout(() => {
+              window.location.href = "halaman2.html";
+            }, 4500); // 3000 milidetik = 3 detik
+          }, delay * 1000 + 1200);
+          // ✨ MODIFIKASI SELESAI ✨
+        }
+        setTimeout(createHeartFormation, 1800);
+      });
+    </script>
+  </body>
+</html>
