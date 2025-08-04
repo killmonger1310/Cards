@@ -30,18 +30,31 @@
         color: #d63384;
         font-weight: bold;
         margin-bottom: 25px;
-        transition: transform 0.3s ease, font-size 0.3s ease; /* Added font-size transition */
+        transition: transform 0.3s ease, font-size 0.3s ease;
         animation: bounce 1s infinite;
       }
       @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
       }
-      .message:hover { transform: scale(1.1); }
-      #bubbles-text { position: absolute; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; }
+      .message:hover {
+        transform: scale(1.1);
+      }
+      #bubbles-text {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
       .text-bubble {
         position: absolute;
-        /* MODIFIED: Use rem for font-size */
         font-size: 1.1rem;
         font-family: "Cursive", sans-serif;
         color: #d63384;
@@ -51,35 +64,44 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         animation: floatText 8s ease-in-out forwards;
         white-space: nowrap;
-        transition: font-size 0.3s ease; /* Added font-size transition */
+        transition: font-size 0.3s ease;
       }
       @keyframes floatText {
-        0% { opacity: 0; transform: scale(0.5) translateY(0px); }
-        50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
-        100% { opacity: 0; transform: scale(1) translateY(-100px); }
+        0% {
+          opacity: 0;
+          transform: scale(0.5) translateY(0px);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2) translateY(-50px);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1) translateY(-100px);
+        }
       }
-
-      /* MODIFIED: Enhanced media queries */
       @media (max-width: 768px) {
-        body { background-size: cover; background-position: center top; }
+        body {
+          background-size: cover;
+          background-position: center top;
+        }
         .message {
-          font-size: 24px; /* Slightly smaller on tablets */
+          font-size: 24px;
           padding: 20px;
         }
         .text-bubble {
-            font-size: 1rem; /* Slightly smaller bubble text */
+          font-size: 1rem;
         }
       }
-      /* ADDED: Media query for small phones */
       @media (max-width: 480px) {
         .message {
-            font-size: 20px; /* Smaller on phones */
-            padding: 15px;
-            margin-bottom: 20px;
+          font-size: 20px;
+          padding: 15px;
+          margin-bottom: 20px;
         }
         .text-bubble {
-            font-size: 0.85rem; /* Smaller bubble text on phones */
-            padding: 8px 15px;
+          font-size: 0.85rem;
+          padding: 8px 15px;
         }
       }
     </style>
@@ -88,32 +110,54 @@
     <div class="message">I Love You ❤️</div>
     <div id="bubbles-text"></div>
     <script>
-  const messages = ["Lopyuu So muchh ❤️", "Lopyuu Emma 💖", "Makasih ya, udah hadir di sa punya hidup 🌟", "Kamu adalah orang favoritku 💕", "Kita bareng-bareng terus ya selamanya 🥰", "Lopyuu Emma 💖", "Cuma ada kamu sama aku, untuk selamanyaa 💖", "Senyuman manis mu menerangiku 💫", "Ko adalah hal terbaik yang pernah terjadi pada sa 😍", "Setiap momen bersamamu terasa istimewa ✨", "Aku selalu memikirkanmu 💭", "Hatiku milikmu 💘", "Lopyuu Emma 💖"];
-  function createTextBubble() {
-    const bubble = document.createElement("div");
-    bubble.className = "text-bubble";
-    bubble.innerText = messages[(Math.floor(Math.random() * messages.length))];
-    // MODIFIED: Rentang nilai acak untuk left dan top diperluas
-    const left = Math.random() * 90; // Rentang 0-90vw
-    const top = Math.random() * 90;   // Rentang 0-90vh
-    bubble.style.position = "absolute";
-    bubble.style.left = left + "vw";
-    bubble.style.top = top + "vh";
-    document.getElementById("bubbles-text").appendChild(bubble);
-    setTimeout(() => {
-      const rect = bubble.getBoundingClientRect();
-      // MODIFIED: Koreksi batas agar tidak terlalu dekat ke tepi
-      const margin = 10;
-      if (rect.right > window.innerWidth - margin) bubble.style.left = `${window.innerWidth - rect.width - margin}px`;
-      if (rect.bottom > window.innerHeight - margin) bubble.style.top = `${window.innerHeight - rect.height - margin}px`;
-      if (rect.left < margin) bubble.style.left = `${margin}px`;
-      if (rect.top < margin) bubble.style.top = `${margin}px`;
-    }, 10);
-    setTimeout(() => {
-      bubble.remove();
-    }, 8000);
-  }
-  setInterval(createTextBubble, 500);
-</script>
+      const messages = [
+        "Lopyuu So muchh ❤️",
+        "Lopyuu Emma 💖",
+        "Makasih ya, udah hadir di sa punya hidup 🌟",
+        "Kamu adalah orang favoritku 💕",
+        "Kita bareng-bareng terus ya selamanya 🥰",
+        "Lopyuu Emma 💖",
+        "Cuma ada kamu sama aku, untuk selamanyaa 💖",
+        "Senyuman manis mu menerangiku 💫",
+        "Ko adalah hal terbaik yang pernah terjadi pada sa 😍",
+        "Setiap momen bersamamu terasa istimewa ✨",
+        "Aku selalu memikirkanmu 💭",
+        "Hatiku milikmu 💘",
+        "Lopyuu Emma 💖",
+      ];
+
+      function createTextBubble() {
+        const bubble = document.createElement("div");
+        bubble.className = "text-bubble";
+        bubble.innerText =
+          messages[Math.floor(Math.random() * messages.length)];
+
+        // ✨ MODIFIED: Changed the horizontal position range ✨
+        // The original was `Math.random() * 80 + 10`, which resulted in a 10vw to 90vw range.
+        // This new range (5vw to 70vw) shifts bubbles to the left and center.
+        const left = Math.random() * 65 + 5;
+        const top = Math.random() * 80 + 10;
+
+        bubble.style.position = "absolute";
+        bubble.style.left = left + "vw";
+        bubble.style.top = top + "vh";
+        document.getElementById("bubbles-text").appendChild(bubble);
+
+        setTimeout(() => {
+          const rect = bubble.getBoundingClientRect();
+          if (rect.right > window.innerWidth)
+            bubble.style.left = `${window.innerWidth - rect.width - 10}px`;
+          if (rect.bottom > window.innerHeight)
+            bubble.style.top = `${window.innerHeight - rect.height - 10}px`;
+          if (rect.left < 0) bubble.style.left = "10px";
+          if (rect.top < 0) bubble.style.top = "10px";
+        }, 10);
+
+        setTimeout(() => {
+          bubble.remove();
+        }, 8000);
+      }
+      setInterval(createTextBubble, 500);
+    </script>
   </body>
 </html>
