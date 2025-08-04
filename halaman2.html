@@ -88,27 +88,32 @@
     <div class="message">I Love You ❤️</div>
     <div id="bubbles-text"></div>
     <script>
-      const messages = ["Lopyuu So muchh ❤️", "Lopyuu Emma 💖", "Makasih ya, udah hadir di sa punya hidup 🌟", "Kamu adalah orang favoritku 💕", "Kita bareng-bareng terus ya selamanya 🥰", "Lopyuu Emma 💖", "Cuma ada kamu sama aku, untuk selamanyaa 💖", "Senyuman manis mu menerangiku 💫", "Ko adalah hal terbaik yang pernah terjadi pada sa 😍", "Setiap momen bersamamu terasa istimewa ✨", "Aku selalu memikirkanmu 💭", "Hatiku milikmu 💘", "Lopyuu Emma 💖"];
-      function createTextBubble() {
-        const bubble = document.createElement("div");
-        bubble.className = "text-bubble";
-        bubble.innerText = messages[Math.floor(Math.random() * messages.length)];
-        const left = Math.random() * 80 + 10;
-        const top = Math.random() * 80 + 10;
-        bubble.style.position = "absolute";
-        bubble.style.left = left + "vw";
-        bubble.style.top = top + "vh";
-        document.getElementById("bubbles-text").appendChild(bubble);
-        setTimeout(() => {
-          const rect = bubble.getBoundingClientRect();
-          if (rect.right > window.innerWidth) bubble.style.left = `${window.innerWidth - rect.width - 10}px`;
-          if (rect.bottom > window.innerHeight) bubble.style.top = `${window.innerHeight - rect.height - 10}px`;
-          if (rect.left < 0) bubble.style.left = "10px";
-          if (rect.top < 0) bubble.style.top = "10px";
-        }, 10);
-        setTimeout(() => { bubble.remove(); }, 8000);
-      }
-      setInterval(createTextBubble, 500);
-    </script>
+  const messages = ["Lopyuu So muchh ❤️", "Lopyuu Emma 💖", "Makasih ya, udah hadir di sa punya hidup 🌟", "Kamu adalah orang favoritku 💕", "Kita bareng-bareng terus ya selamanya 🥰", "Lopyuu Emma 💖", "Cuma ada kamu sama aku, untuk selamanyaa 💖", "Senyuman manis mu menerangiku 💫", "Ko adalah hal terbaik yang pernah terjadi pada sa 😍", "Setiap momen bersamamu terasa istimewa ✨", "Aku selalu memikirkanmu 💭", "Hatiku milikmu 💘", "Lopyuu Emma 💖"];
+  function createTextBubble() {
+    const bubble = document.createElement("div");
+    bubble.className = "text-bubble";
+    bubble.innerText = messages[(Math.floor(Math.random() * messages.length))];
+    // MODIFIED: Rentang nilai acak untuk left dan top diperluas
+    const left = Math.random() * 90; // Rentang 0-90vw
+    const top = Math.random() * 90;   // Rentang 0-90vh
+    bubble.style.position = "absolute";
+    bubble.style.left = left + "vw";
+    bubble.style.top = top + "vh";
+    document.getElementById("bubbles-text").appendChild(bubble);
+    setTimeout(() => {
+      const rect = bubble.getBoundingClientRect();
+      // MODIFIED: Koreksi batas agar tidak terlalu dekat ke tepi
+      const margin = 10;
+      if (rect.right > window.innerWidth - margin) bubble.style.left = `${window.innerWidth - rect.width - margin}px`;
+      if (rect.bottom > window.innerHeight - margin) bubble.style.top = `${window.innerHeight - rect.height - margin}px`;
+      if (rect.left < margin) bubble.style.left = `${margin}px`;
+      if (rect.top < margin) bubble.style.top = `${margin}px`;
+    }, 10);
+    setTimeout(() => {
+      bubble.remove();
+    }, 8000);
+  }
+  setInterval(createTextBubble, 500);
+</script>
   </body>
 </html>
